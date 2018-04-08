@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { Node, RootNode } = require('./trie-node');
+const { RootNode } = require('./trie-node');
 // const root = new RootNode();
 //
 // root.addWord('s');
@@ -18,7 +18,7 @@ const { Node, RootNode } = require('./trie-node');
 
 let input_currentline = 0;
 const input_stdin_array = fs
-	.readFileSync('./commands2.txt', { encoding: 'utf-8' })
+	.readFileSync('./commands.back.txt', { encoding: 'utf-8' })
 	.split('\n');
 
 const length = parseInt(readLine());
@@ -33,7 +33,8 @@ for (let i = 0; i < length; i++) {
 	if (op === 'find') {
 		if (i > 400) {
 			const amt = root.startsWith(contact);
-			finds.push(JSON.stringify({ find: contact.trim(), amt }, null, 4));
+			if (amt)
+				finds.push(JSON.stringify({ find: contact.trim(), amt }, null, 4));
 		}
 	} else root.addWord(contact);
 }
