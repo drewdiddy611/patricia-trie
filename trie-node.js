@@ -18,6 +18,11 @@ class Node {
 		}
 		return count;
 	}
+
+	_hasChildren() {
+		if (Object.keys(this).length === 1) return false;
+		return true;
+	}
 }
 
 /***
@@ -139,6 +144,70 @@ class RootNode extends Node {
 				delete node[nodeKey];
 				return;
 			}
+		}
+	}
+
+	// Returns true if the trie contains the word.
+	has(word) {
+		word = word.trim();
+		let node = this;
+
+		// Are we available in the root node?
+		if (node[word]) return true;
+
+		// Compare each character
+		let prefix = '',
+			match = '';
+		for (let i = 0; i <= word.length; i++) {
+			prefix += word[i] ? word[i] : '';
+
+			// Traverse down the tree
+			if (node[prefix]) {
+				match += prefix;
+				node = node[prefix];
+				prefix = '';
+				continue;
+			}
+		}
+
+		// If the matched characters equals the word passed
+		// in, the trie contains that word.
+		return match === word && node.isCompleteWord;
+	}
+
+	// Remove the word from the trie, if it exists.
+	remove(word) {
+		word = word.trim();
+		let node = this;
+
+		// Remove from the root if it exists.
+		if (node[word]) delete node[word];
+
+		// Compare each character
+		let prefix = '',
+			match = '',
+			prev = null,
+			prevKey = '';
+		for (let i = 0; i <= word.length; i++) {
+			prefix += word[i] ? word[i] : '';
+
+			// Traverse down the tree
+			if (node[prefix]) {
+				match += prefix;
+				prev = node;
+				prevKey = prefix;
+				node = node[prefix];
+				prefix = '';
+				continue;
+			}
+		}
+
+		if (match === word) {
+			if (node._hasChildren()) {
+				node.isCompleteWord = false;
+				return;
+			}
+			delete prev[prevKey];
 		}
 	}
 

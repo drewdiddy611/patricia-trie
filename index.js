@@ -39,7 +39,12 @@ for (let i = 0; i < length; i++) {
 	} else root.addWord(contact);
 }
 // console.log(JSON.stringify(root, null, 4));
-console.log(finds.join('\n'));
+//console.log(finds.join('\n'));
+
+root.addWord('stibaltrar');
+console.log(root.has('stibaltrar'));
+root.remove('stibaltrar');
+console.log(root.has('stibaltrar'));
 
 function readLine() {
 	return input_stdin_array[input_currentline++];
