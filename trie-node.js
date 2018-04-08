@@ -101,7 +101,7 @@ class RootNode extends Node {
 				// If we make it here, and the current nodeKey starts
 				// with the prefix, then we do nothing and continue with
 				// our similar character comparison.
-				if (nodeKey.startsWith(prefix)) continue;
+				if (nodeKey.startsWith(prefix)) continue outer;
 
 				// If the current prefix length is one, then the node
 				// doesn't have a child with any remaining letters of
