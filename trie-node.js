@@ -142,6 +142,7 @@ class RootNode extends Node {
 		}
 	}
 
+	// Return the number of words in the trie that start with `word`.
 	startsWith(word) {
 		word = word.trim();
 		let node = this;
