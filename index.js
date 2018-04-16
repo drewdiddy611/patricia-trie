@@ -1,20 +1,8 @@
 const fs = require('fs');
-const { RootNode } = require('./trie-node');
-// const root = new RootNode();
-//
-// root.addWord('s');
-// root.addWord('ss');
-// root.addWord('sss');
-// root.addWord('ssss');
-// root.addWord('sssss');
-//
-// console.log(JSON.stringify(root, null, 4));
-// console.log(root.startsWith('s'));
-// console.log(root.startsWith('ss'));
-// console.log(root.startsWith('sss'));
-// console.log(root.startsWith('ssss'));
-// console.log(root.startsWith('sssss'));
-// console.log(root.startsWith('ssssss'));
+const { TrieMapRoot } = require('./trie-map');
+function readLine() {
+	return input_stdin_array[input_currentline++];
+}
 
 let input_currentline = 0;
 const input_stdin_array = fs
@@ -22,8 +10,8 @@ const input_stdin_array = fs
 	.split('\n');
 
 const length = parseInt(readLine());
-const root = new RootNode(),
-	finds = [];
+const root = new TrieMapRoot();
+finds = [];
 
 for (let i = 0; i < length; i++) {
 	var op_temp = readLine().split(' ');
@@ -32,20 +20,18 @@ for (let i = 0; i < length; i++) {
 
 	if (op === 'find') {
 		if (i > 400) {
-			const amt = root.startsWith(contact);
+			const amt = root.countByStartsWith(contact);
 			if (amt)
 				finds.push(JSON.stringify({ find: contact.trim(), amt }, null, 4));
 		}
-	} else root.addWord(contact);
+	} else root.set(contact);
 }
-// console.log(JSON.stringify(root, null, 4));
-//console.log(finds.join('\n'));
 
-root.addWord('stibaltrar');
-console.log(root.has('stibaltrar'));
-root.remove('stibaltrar');
-console.log(root.has('stibaltrar'));
-
-function readLine() {
-	return input_stdin_array[input_currentline++];
-}
+root.set('starving', new TrieMapRoot());
+root.set('starved', [1, 2, 3, 4, 5, 6]);
+root.set('stibaltrar', { test: true });
+console.log(root);
+root.set('starves', 'HAHAH');
+console.log(root);
+root.delete('starved');
+console.log(root);
